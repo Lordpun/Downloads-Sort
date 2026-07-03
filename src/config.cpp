@@ -30,7 +30,6 @@ fs::path getConfigPath() {
 
 int fillConfig() {
   toml::table config{
-    { "title", "Downloads-Sort Config" },
     { "downloads-path", "" }, 
 
     { "sort-paths", toml::array{
