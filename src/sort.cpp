@@ -41,12 +41,19 @@ fs::path findSortPath(fs::path filePath) {
 }
 
 int moveFiles() {
+  configData config = getConfig();
+
   std::vector<fs::path> downloads = getDownloads();
-  std::cout<< "Downloads: " << downloads.size() << std::endl;
 
   for (fs::path download : downloads) {
-    std::cout << "Download path: " << download << std::endl;
-    std::cout << "Found path: " << findSortPath(download) << std::endl;
+    fs::path sortPath = findSortPath(download);
+    if (sortPath == config.downloadsPath) continue;
+
+    try {
+      fs::rename((config.downloadsPath / download.filename()), (sortPath / download.filename()));
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error moving file: " << e.what() << "\n";
+    }
   }
 
   return 0;
