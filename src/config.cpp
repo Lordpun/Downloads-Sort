@@ -1,6 +1,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <vector>
 #include "config.hpp"
 #include <toml.hpp>
 
@@ -23,6 +24,7 @@ fs::path getConfigPath() {
       return fs::path(home) / ".config" / "Downloads-Sort";
     }
   #endif
+    std::cout << "Unable to find config folder. Making config file in current directory";
     return fs::current_path() / "Downloads-Sort-Config";
 }
 
@@ -57,21 +59,24 @@ int fillConfig() {
     return 1;
   }
 
+  file << config;
+
   return 0;
 }
 
 int createConfig() {
-  if (!fs::exists(getConfigPath() / "config.toml") && fs::is_regular_file(getConfigPath() / "config.toml")) {
-    fs::create_directory(getConfigPath());
-    std::ofstream file(getConfigPath() / "config.toml");
-
-    if (!file.is_open()) {
-      std::cerr << "Failed to make file for writing." << std::endl;
+  if (!fs::exists(getConfigPath())) {
+    if (!fs::create_directories(getConfigPath())) {
+      std::cerr << "Failed to create config directory: " << getConfigPath() << std::endl;
       return 1;
     }
   }
 
-  return fillConfig();
+  if (!fs::exists(getConfigPath() / "config.toml")) {
+      return fillConfig();
+  }
+
+  return 0;
 }
 
 sortPathData sortPathTable(toml::table* table) {
@@ -103,4 +108,27 @@ configData getConfig() {
   }
 
   return configInfo;
+}
+
+bool checkConfigValidity(configData config) {
+  bool configValid = true;
+
+  if (config.downloadsPath == "") {
+    std::cerr << "Missing downloads path in config." << std::endl;
+    configValid = false;
+  }
+
+  std::vector<sortPathData> sortPathsInfo = config.sortPaths;
+  int missingExtensionCount = 0;
+  int missingPathCount = 0;
+
+  for (sortPathData sortPathInfo : sortPathsInfo) {
+    if (sortPathInfo.extensions.size() == 0) missingExtensionCount += 1;
+    if (sortPathInfo.sortPath == "") missingPathCount += 1;
+  }
+
+  if (missingExtensionCount > 0) std::cerr << missingExtensionCount << " blank lists for extensions." << std::endl;
+  if (missingPathCount > 0) std::cerr << missingPathCount << " empty sort paths." << std::endl;
+
+  return configValid;
 }

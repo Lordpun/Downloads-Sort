@@ -20,4 +20,6 @@ int createConfig();
 
 configData getConfig();
 
+bool checkConfigValidity(configData config);
+
 #endif

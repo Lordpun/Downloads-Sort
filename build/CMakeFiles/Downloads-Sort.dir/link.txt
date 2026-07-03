@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/Downloads-Sort.dir/link.d "CMakeFiles/Downloads-Sort.dir/src/main.cpp.o" "CMakeFiles/Downloads-Sort.dir/src/config.cpp.o" -o Downloads-Sort

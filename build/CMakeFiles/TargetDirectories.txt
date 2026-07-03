@@ -1,0 +1,3 @@
+/home/lordpun/CodeProjects/Downloads-Sort/build/CMakeFiles/Downloads-Sort.dir
+/home/lordpun/CodeProjects/Downloads-Sort/build/CMakeFiles/edit_cache.dir
+/home/lordpun/CodeProjects/Downloads-Sort/build/CMakeFiles/rebuild_cache.dir
