@@ -29,7 +29,7 @@ int main() {
 
   efsw::FileWatcher* fileWatcher = new efsw::FileWatcher();
   UpdateListener* listener = new UpdateListener();
-  efsw::WatchID watchID = fileWatcher->addWatch( config.downloadsPath, listener, true );
+  efsw::WatchID watchID = fileWatcher->addWatch( config.downloadsPath.string(), listener, true );
 
   fileWatcher->watch();
 
