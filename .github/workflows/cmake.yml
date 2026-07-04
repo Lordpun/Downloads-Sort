@@ -25,6 +25,6 @@ jobs:
       with:
         name: program-${{ matrix.os }}
         path: |
-          build/Downloads-Sort-Linux
-          build/Downloads-Sort-Mac.exe
-          build/Release/Downloads-Sort-Windows.exe
+          build/Downloads-Sort
+          build/Downloads-Sort.exe
+          build/Release/Downloads-Sort.exe
