@@ -19,3 +19,12 @@ jobs:
 
     - name: Build Project
       run: cmake --build build --config Release
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: program-${{ matrix.os }}
+        path: |
+          build/Downloads-Sort-Linux
+          build/Downloads-Sort-Mac.exe
+          build/Release/Downloads-Sort-Windows.exe
