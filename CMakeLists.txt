@@ -11,6 +11,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/SpartanJ/efsw.git
   GIT_TAG master
 )
+set(EFSW_BUILD_DEMO OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(efsw)
 
 add_executable(Downloads-Sort 
@@ -22,7 +23,10 @@ add_executable(Downloads-Sort
 target_include_directories(Downloads-Sort PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
 target_link_libraries(Downloads-Sort PRIVATE efsw)
 
-# More reasons to hate MacOS
+if(WIN32)
+  target_compile_definitions(Downloads-Sort PRIVATE NOMINMAX)
+endif()
+
 if(APPLE)
   find_library(CORE_SERVICES_FRAMEWORK CoreServices)
   if(CORE_SERVICES_FRAMEWORK)
