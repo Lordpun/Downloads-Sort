@@ -3,7 +3,7 @@ This is a small script to automatically move and sort files you download
 
 ## Installing
 ### Precompiled builds
-Simply download the latest version under the releases tab for your OS
+Simply download the latest version under the releases tab for your OS  
 **Note**: I've noticed that the precompiled versions (At least the Linux version) don't work, so compiling from source is the only option
 
 ### From Source
